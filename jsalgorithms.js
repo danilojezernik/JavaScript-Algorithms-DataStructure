@@ -1,5 +1,4 @@
 // *** Algorithms: Bubble Sort ***
-// Preverja se po vrednostih
 
 function bubbleSort(array) {
     for (let i = array.length - 1; i > 0; i--) {
@@ -17,8 +16,8 @@ function bubbleSort(array) {
 console.log(bubbleSort(['a', 'c', 'z', 'g', 's', 'i']))
 console.log(bubbleSort([22, 1, 3, 8, 4, 2]))
 
+
 // *** Algorithms: Selection Sort ***
-// Preverja se po indexih
 
 function selectionSort(array) {
     let min
@@ -38,6 +37,7 @@ function selectionSort(array) {
 
 console.log(selectionSort(['a', 'c', 'z', 'g', 's', 'i']))
 console.log(selectionSort([22, 1, 3, 8, 4, 2]))
+
 
 // *** Algorithms: Insertion Sort ***
 
@@ -59,7 +59,6 @@ console.log(insertionSort([22, 1, 3, 8, 4, 2]))
 
 
 // *** Algorithms: Merge function ***'
-// Merge two arrays and sort them'
 
 function merge(array1, array2) {
     let combined = []
@@ -87,6 +86,7 @@ function merge(array1, array2) {
 
 console.log(merge([1,3,7,8], [2,4,5,6]))
 
+
 // *** Algorithms: Merge sort ***
 
 function mergeSort(array) {
@@ -99,6 +99,7 @@ function mergeSort(array) {
 }
 
 console.log(mergeSort([3,1,4,2,5,77,44,32]))
+
 
 // *** Algorithms: Pivot function ***
 
@@ -124,6 +125,7 @@ let myArray = [4,6,1,7,3,2,5]
 console.log(pivot(myArray))
 console.log(myArray)
 
+
 // *** Algorithms: Quick sort ***
 
 function quickSort(array, left=0, right=array.length-1) {
@@ -136,3 +138,122 @@ function quickSort(array, left=0, right=array.length-1) {
 }
 
 console.log(quickSort([4,6,1,7,3,2,5]))
+
+
+// *** Algorithms: Tree Traversal ***
+
+class Node {
+    constructor(value) {
+        this.value = value
+        this.left = null
+        this.right = null
+    }
+}
+
+class BST {
+    constructor() {
+        this.root = null
+    }
+
+    insert(value) {
+        const newNode = new Node(value)
+        if (this.root === null) {
+            this.root = newNode
+            return this
+        }
+        let temp = this.root
+        while(true) {
+            if (newNode.value === temp.value) return undefined
+            if (newNode.value < temp.value) {
+                if (temp.left === null) {
+                    temp.left = newNode
+                    return this
+                }
+                temp = temp.left
+            } else {
+                if (temp.right === null) {
+                    temp.right = newNode
+                    return this
+                }
+                temp = temp.right
+            }
+        }
+    }
+
+    contains(value) {
+        if (this.root === null) return false
+        let temp = this.root
+        while(temp) {
+            if (value < temp.value) {
+                temp = temp.left
+            } else if (value > temp.value) {
+                temp = temp.right
+            } else {
+                return true
+            }
+        }
+        return false
+    }
+
+    // Breadth First Search
+    BFS() {
+        let currentNode = this.root
+        let results = []
+        let queue = []
+        queue.push(currentNode)
+
+        while(queue.length) {
+            currentNode = queue.shift()
+            results.push(currentNode.value)
+            if(currentNode.left) queue.push(currentNode.left)
+            if(currentNode.right) queue.push(currentNode.right)
+        }
+        return results
+    }
+
+    // Depth First Search Pre Order
+    DFSPreOrder() {
+        let results = []
+        function traverse(currentNode) {
+            results.push(currentNode.value)
+            if(currentNode.left) traverse(currentNode.left)
+            if(currentNode.right) traverse(currentNode.right)
+        }
+        traverse(this.root)
+        return results
+    }
+
+    // Depth First Search Post Order
+    DFSPostOrder() {
+        let results = []
+        function traverse(currentNode){
+            if(currentNode.left) traverse(currentNode.left)
+            if(currentNode.right) traverse(currentNode.right)
+            results.push(currentNode.value)
+        }
+        traverse(this.root)
+        return results
+    }
+
+    // Depth First Search In Order
+    DFSInOrder() {
+        let results = []
+        function traverse(currentNode) {
+            if(currentNode.left) traverse(currentNode.left)
+            results.push(currentNode.value)
+            if(currentNode.right) traverse(currentNode.right)
+        }
+        traverse(this.root)
+        return results
+    }
+}
+
+
+let myTree = new BST()
+myTree.insert(47)
+myTree.insert(21)
+myTree.insert(76)
+myTree.insert(18)
+myTree.insert(27)
+myTree.insert(52)
+myTree.insert(82)
