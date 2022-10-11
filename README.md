@@ -1,5 +1,5 @@
 
-# Setting up Sequelize v6 and Express.js
+# JavaScript-Algorithms
 
 ## Basic Sorts
 ### Bubble Sort
